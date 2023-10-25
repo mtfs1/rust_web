@@ -1,8 +1,14 @@
 #[macro_use] extern crate rocket;
 
+use std::net::SocketAddr;
+
+use chrono::Local;
+
+
 #[get("/")]
-fn index() -> &'static str {
-    "Hello, world!"
+fn index(remote_addr: SocketAddr) -> String {
+    let now = Local::now();
+    format!("{remote_addr}\n{}", now.format("[%Y-%m-%d][%H:%M:%S]"))
 }
 
 #[launch]
